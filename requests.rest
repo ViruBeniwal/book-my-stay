@@ -1,0 +1,139 @@
+# Book My Stay API Requests
+# Base URL and common variables
+@baseUrl = http://localhost:3000
+@accessToken = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2OWYzOWU4NTZkNzNhMmU1ODIzYTEwYzMiLCJyb2xlIjoidXNlciIsImlhdCI6MTc3ODA4NjAwMywiZXhwIjoxNzc4MDg2NjAzfQ.KtvlA2NAXZTxutNd1qnATip6hnYgggaH417M3ogg_n4
+@refreshToken = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2OWY1ZDY2ODBmYTc5NDEzNDUwNTFmNTEiLCJpYXQiOjE3Nzc3NDc3NTJ9.oHXbxeiiauGcxVy-DIYPyNSQnpZv2F_LoYThArdMwNE
+@altAccessToken = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2OWY3YmM3YWE5NjUwNzZiZmZkMWM2ZTAiLCJpYXQiOjE3Nzc4NDMzNjUsImV4cCI6MTc3Nzg0Mzk2NX0.8fJOwM4vcKmpOztMo_-qbyDOtqKhoEo71ug4g4I4rUk
+
+# ==============================================================================
+# AUTHENTICATION ENDPOINTS
+# ==============================================================================
+
+### Sign Up a New User
+POST {{baseUrl}}/auth/signup
+Content-Type: application/json
+
+{
+    "name": "Abhinav",
+    "username": "abhi0",
+    "email": "abhinav@email.com",
+    "password": "Abhinav2004",
+    "role" : "host"
+}
+
+###
+
+### Login a User
+POST {{baseUrl}}/auth/login
+Content-Type: application/json
+
+{
+    "username": "virubeniwal",
+    "password": "Viru2004"
+}
+
+###
+
+### Logout a User
+DELETE {{baseUrl}}/auth/logout
+Authorization: Bearer {{accessToken}}
+Content-Type: application/json
+p ENDPO
+{
+    "refreshToken": "{{refreshToken}}"
+}
+
+###
+
+### Generate a New Access Token
+GET {{baseUrl}}/auth/refresh-token
+Authorization: Bearer {{accessToken}}
+
+###
+
+# ==============================================================================
+# PROFILE ENDPOINTS
+# ==============================================================================
+
+### Get Your Profile Info
+GET {{baseUrl}}/profile/me
+Authorization: Bearer {{accessToken}}
+
+###
+
+### Update Your Profile
+PATCH {{baseUrl}}/profile/me
+Authorization: Bearer {{accessToken}}
+Content-Type: application/json
+
+{
+    "name": "Karthik",
+    "password": "sdfdiohdff"
+}
+
+###
+
+### Delete Your Profile
+DELETE {{baseUrl}}/profile/me
+Authorization: Bearer {{accessToken}}
+
+###
+
+# ==============================================================================
+# PROPERTY ENDPOINTS
+# ==============================================================================
+@propertyId = 69fa2f72d05c60f4542caf06
+
+###
+# get all properties in a city
+GET {{baseUrl}}/properties?city=Delhi
+Authorization: Bearer {{accessToken}}
+
+###
+# get a property by id
+GET {{baseUrl}}/properties/{{propertyId}}
+Authorization: Bearer {{accessToken}}
+
+###
+# create a new property
+POST {{baseUrl}}/properties
+Authorization: Bearer {{accessToken}}
+Content-Type: application/json
+
+{
+    "title": "Cozy Apartment in Delhi, more crazy",
+    "description": "A cozy apartment located in the heart of Delhi.",
+    "price": 1800,
+    "city": "Delhi",
+    "address": "153 Main Street, Delhi"
+}
+
+
+###
+
+# ==============================================================================
+# PROPERTY ENDPOINTS
+# ==============================================================================
+
+@bookingId = 69fb729810f692edfd7c77f5
+
+###
+# get all bookings for the logged in user
+GET {{baseUrl}}/bookings
+Authorization: Bearer {{accessToken}}
+
+###
+# book a property
+POST {{baseUrl}}/bookings/{{propertyId}}
+Authorization: Bearer {{accessToken}}
+Content-Type: application/json 
+
+{
+    "startDate": "2026-05-07",
+    "endDate": "2026-07-10"
+}
+
+### 
+# delete a booking by id
+DELETE {{baseUrl}}/bookings/{{bookingId}}
+Authorization: Bearer {{accessToken}}
